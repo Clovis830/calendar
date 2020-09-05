@@ -1,10 +1,2 @@
-import 'package:flutter/material.dart';
-
-class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(child: Scaffold(appBar: AppBar(title: Text("Home"))));
-  }
-}
+export 'home.dart';
+export 'bloc/home_bloc.dart';
