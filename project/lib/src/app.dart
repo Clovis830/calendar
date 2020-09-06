@@ -12,6 +12,7 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider<HomeBloc>(
             create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
+            child: Home(),
           )
         ],
         child: MaterialApp(
