@@ -12,4 +12,7 @@ class Rest extends IProvider {
   }
 
   _init() {}
+
+  @override
+  Future<Database> getInstance() async {}
 }

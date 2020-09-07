@@ -19,7 +19,7 @@ class DbCalibre extends IProvider {
   }
 
   Future<void> _open() async {
-    if (_db == null || (_db != null && _db.isOpen)) {
+    if (_db != null && _db.isOpen) {
       return;
     }
     String path = await _getPath();
@@ -37,10 +37,13 @@ class DbCalibre extends IProvider {
     await File(path).writeAsBytes(bytes, flush: true);
   }
 
+  // copy db from android storage or one drive
+  Future<void> _copyFrom() async {}
+
   Future<void> _checkIfExist() async {
     String path = await _getPath();
     bool exists = await databaseExists(path);
-
+    print('exist $exists');
     if (!exists) {
       await _copy(path);
     }
@@ -51,10 +54,24 @@ class DbCalibre extends IProvider {
     await _open();
   }
 
-  Future<Database> getDb() async {
+  @override
+  Future<Database> getInstance() async {
     if (_db == null) {
       await _checkAndOpen();
     }
     return _db;
+  }
+
+  //update original db
+  update() {
+    print('update original db');
+  }
+
+  Future<List<Map<String, dynamic>>> query(String table, [Map<dynamic, dynamic> arguments]) async {
+    Database db = await getInstance();
+    if (db == null) {
+      return null;
+    }
+    return Function.apply(db.query, [table], arguments);
   }
 }

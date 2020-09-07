@@ -13,9 +13,9 @@ class Home extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(title: Text("Home")),
             body: RaisedButton(
-                onPressed: () {
-                  print('pressed');
-                  serviceLocator[ServiceKeys.calibre].getDb();
+                onPressed: () async {
+                  final authors = await getService<DbCalibre>().query('authors');
+                  print('pressed $authors');
                   BlocProvider.of<HomeBloc>(context).add(HomeEventStarted());
                 },
                 child: Text('button'))));

@@ -1,3 +1,5 @@
 part of 'index.dart';
 
-abstract class IProvider {}
+abstract class IProvider {
+  Future<dynamic> getInstance();
+}
