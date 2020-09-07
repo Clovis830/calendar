@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 
-import 'package:calendar/src/app.dart';
-import 'package:calendar/src/observers/test.dart';
-import 'package:calendar/src/providers/index.dart';
+import 'package:calendar/src/components/app/app.dart';
+import 'package:calendar/src/services/observers/test.dart';
+import 'package:calendar/src/services/service-locator.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initProviders();
+  initServices();
   Bloc.observer = SimpleBlocObserver();
 
   runApp(App());
