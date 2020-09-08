@@ -16,18 +16,10 @@ class ErrorBloc extends Bloc<ErrorEvent, ErrorState> {
   ) async* {
     if (event is ErrorEventShow) {
       yield ErrorState.withError(event.message);
+      Future.delayed(Duration(seconds: 5));
+      yield ErrorState.cleared();
     } else if (event is ErrorEventHide) {
       yield ErrorState.cleared();
     }
-  }
-
-  @override
-  void onTransition(Transition<ErrorEvent, ErrorState> transition) {
-    if (transition.event is ErrorEventShow) {
-      Future.delayed(Duration(seconds: 5), () {
-        this.add(ErrorEventHide());
-      });
-    }
-    super.onTransition(transition);
   }
 }

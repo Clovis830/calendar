@@ -1,11 +1,15 @@
+import 'package:bloc/bloc.dart';
+
 import 'package:calendar/src/services/providers/index.dart';
 import 'package:calendar/src/services/repositories/index.dart';
 export 'package:calendar/src/services/repositories/index.dart';
 export 'package:calendar/src/services/providers/index.dart';
+import 'package:calendar/src/services/observers/test.dart';
 
 final Set<dynamic> _container = {};
 
 void initServices() {
+  Bloc.observer = SimpleBlocObserver();
   initProviders(_container);
   initRepositories(_container);
 }
