@@ -23,6 +23,5 @@ T getService<T>() {
   if (values.isEmpty) {
     print('Error! Service with type $T not found!');
   }
-  print('val: $values');
   return values.single;
 }

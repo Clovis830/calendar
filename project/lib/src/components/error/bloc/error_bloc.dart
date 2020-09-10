@@ -8,18 +8,18 @@ part 'error_event.dart';
 part 'error_state.dart';
 
 class ErrorBloc extends Bloc<ErrorEvent, ErrorState> {
-  ErrorBloc() : super(ErrorState.cleared());
+  ErrorBloc() : super(ErrorStateEmpty());
 
   @override
   Stream<ErrorState> mapEventToState(
     ErrorEvent event,
   ) async* {
     if (event is ErrorEventShow) {
-      yield ErrorState.withError(event.message);
-      Future.delayed(Duration(seconds: 5));
-      yield ErrorState.cleared();
+      yield ErrorStateActive(event.message);
+      await Future.delayed(Duration(seconds: 5));
+      yield ErrorStateEmpty();
     } else if (event is ErrorEventHide) {
-      yield ErrorState.cleared();
+      yield ErrorStateEmpty();
     }
   }
 }

@@ -1,15 +1,19 @@
 part of 'error_bloc.dart';
 
 @immutable
-class ErrorState extends Equatable {
+abstract class ErrorState extends Equatable {
   final String message;
 
-  const ErrorState._(this.message);
-
-  const ErrorState.withError(String message) : this._(message);
-
-  const ErrorState.cleared() : this._(null);
+  const ErrorState(this.message);
 
   @override
   List<Object> get props => [message];
+}
+
+class ErrorStateActive extends ErrorState {
+  const ErrorStateActive(String message) : super(message);
+}
+
+class ErrorStateEmpty extends ErrorState {
+  const ErrorStateEmpty() : super(null);
 }
