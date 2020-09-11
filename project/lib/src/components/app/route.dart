@@ -2,20 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:calendar/src/components/error/index.dart';
+import 'package:calendar/src/components/loader/index.dart';
+import 'package:calendar/src/components/app/navigation.dart';
 
 class AppRoute extends StatelessWidget {
   final Widget child;
   const AppRoute({Key key, this.child}) : super(key: key);
-
-  Future<void> _showErrorDialog(BuildContext context, ErrorState state) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Error(message: state.message);
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +15,27 @@ class AppRoute extends StatelessWidget {
       appBar: AppBar(
         title: Text('test'),
       ),
-      body: BlocListener<ErrorBloc, ErrorState>(
-        listener: (context, state) {
-          if (state is ErrorStateActive) {
-            _showErrorDialog(context, state);
-          }
-        },
-        child: BlocBuilder<ErrorBloc, ErrorState>(
-          builder: (context, state) {
-            if (state is ErrorStateActive) {
-              return Center(child: Text('error hide'));
-            }
-            return Center(child: child);
-          },
-        ),
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<ErrorBloc, ErrorState>(
+            listener: (context, state) {
+              if (state is ErrorStateActive) {
+                Error.showErrorDialog(context, state);
+              }
+            },
+          ),
+          BlocListener<LoaderBloc, LoaderState>(
+            listener: (context, state) {
+              if (state is LoaderStateActive) {
+                Loader.showLoader(context);
+              }
+              if (state is LoaderStateInActive) {
+                Router.goBack(context);
+              }
+            },
+          )
+        ],
+        child: child,
       ),
       floatingActionButton: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -44,8 +43,11 @@ class AppRoute extends StatelessWidget {
         children: <Widget>[
           FloatingActionButton(
             child: Icon(Icons.play_arrow),
-            onPressed: () {
+            onPressed: () async {
               BlocProvider.of<ErrorBloc>(context)..add(ErrorEventShow('test message'));
+              BlocProvider.of<LoaderBloc>(context)..add(LoaderActiveEvent());
+              await Future.delayed(Duration(seconds: 5));
+              BlocProvider.of<LoaderBloc>(context)..add(LoaderInActiveEvent());
             },
           ),
         ],
