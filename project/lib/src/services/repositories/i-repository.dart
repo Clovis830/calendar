@@ -1,3 +1,3 @@
-part of 'index.dart';
+part of 'repositories.dart';
 
 abstract class IRepository {}

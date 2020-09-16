@@ -9,6 +9,26 @@ class AppRoute extends StatelessWidget {
   final Widget child;
   const AppRoute({Key key, this.child}) : super(key: key);
 
+  List<BlocListener> _getEventListeners() => [
+        BlocListener<ErrorBloc, ErrorState>(
+          listener: (context, state) {
+            if (state is ErrorStateActive) {
+              Error.showErrorDialog(context, state);
+            }
+          },
+        ),
+        BlocListener<LoaderBloc, LoaderState>(
+          listener: (context, state) {
+            if (state is LoaderStateActive) {
+              Loader.showLoader(context);
+            }
+            if (state is LoaderStateInActive) {
+              Router.goBack(context);
+            }
+          },
+        )
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,25 +36,7 @@ class AppRoute extends StatelessWidget {
         title: Text('test'),
       ),
       body: MultiBlocListener(
-        listeners: [
-          BlocListener<ErrorBloc, ErrorState>(
-            listener: (context, state) {
-              if (state is ErrorStateActive) {
-                Error.showErrorDialog(context, state);
-              }
-            },
-          ),
-          BlocListener<LoaderBloc, LoaderState>(
-            listener: (context, state) {
-              if (state is LoaderStateActive) {
-                Loader.showLoader(context);
-              }
-              if (state is LoaderStateInActive) {
-                Router.goBack(context);
-              }
-            },
-          )
-        ],
+        listeners: _getEventListeners(),
         child: child,
       ),
       floatingActionButton: Column(

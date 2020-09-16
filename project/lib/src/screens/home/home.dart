@@ -1,3 +1,4 @@
+import 'package:calendar/src/services/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +12,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
         onPressed: () async {
-          final authors = await getService<RCalibre>().getAuthors();
+          final authors = await getService<CalibreRepository>().getAuthors();
           print('pressed $authors');
           BlocProvider.of<HomeBloc>(context).add(HomeEventStarted());
         },

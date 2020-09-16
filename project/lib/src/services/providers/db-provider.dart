@@ -1,19 +1,19 @@
-part of 'index.dart';
+part of 'providers.dart';
 
 /// провайдер для работы с базой данной калибре;
 /// копирование оригинальной базы в приложение;
 /// изменение копии;
 /// обновление оригинальной базы копией;
-class PDbCalibre extends IProvider {
-  static final PDbCalibre _instance = PDbCalibre._private();
+class DbProvider implements IProvider {
+  static final DbProvider _instance = DbProvider._private();
   static final pathToDb = 'calibre/metadata.db';
   Database _db;
 
-  factory PDbCalibre() {
+  factory DbProvider() {
     return _instance;
   }
 
-  PDbCalibre._private() {
+  DbProvider._private() {
     _checkAndOpen();
   }
 
@@ -58,7 +58,6 @@ class PDbCalibre extends IProvider {
     await _open();
   }
 
-  @override
   Future<Database> getInstance() async {
     if (_db == null) {
       await _checkAndOpen();

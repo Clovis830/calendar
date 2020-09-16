@@ -1,5 +1,3 @@
-part of 'index.dart';
+part of 'providers.dart';
 
-abstract class IProvider {
-  Future<dynamic> getInstance();
-}
+abstract class IProvider {}
