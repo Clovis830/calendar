@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:calendar/src/components/app/route.dart';
-import 'package:calendar/src/screens/home/index.dart';
+part of 'app.dart';
 
 enum Routes { home }
 

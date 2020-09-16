@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:calendar/src/components/error/index.dart';
-import 'package:calendar/src/components/loader/index.dart';
-import 'package:calendar/src/components/app/navigation.dart';
+part of 'app.dart';
 
 class AppRoute extends StatelessWidget {
   final Widget child;

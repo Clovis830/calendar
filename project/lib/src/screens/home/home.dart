@@ -1,7 +1,7 @@
-import 'package:calendar/src/services/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:calendar/src/repositories/calibre-repository.dart';
 import 'package:calendar/src/screens/home/bloc/home_bloc.dart';
 import 'package:calendar/src/services/service-locator.dart';
 

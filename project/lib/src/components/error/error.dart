@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:calendar/src/components/app/navigation.dart';
+import 'package:calendar/src/components/app/app.dart';
 import 'package:calendar/src/components/error/bloc/error_bloc.dart';
 
 class Error extends StatelessWidget {
