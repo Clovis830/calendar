@@ -1,8 +1,6 @@
 part of 'app.dart';
 
-enum Routes { home }
-
-final Map<Routes, String> routesMap = const {Routes.home: '/'};
+enum Routes { home, ratings }
 
 class Router {
   static final _instance = Router._();
@@ -13,8 +11,10 @@ class Router {
     return _instance;
   }
 
-  static goTo(BuildContext context, Routes name) {
-    Navigator.pushNamed(context, routesMap[name]);
+  static goTo(BuildContext context, Routes route) {
+    Navigator.pushNamedAndRemoveUntil(context, route.toString(), (route) {
+      return route.isCurrent;
+    });
   }
 
   static void goBack(BuildContext context) {
@@ -26,15 +26,22 @@ class Router {
         child: AppRoute(child: Home()),
       );
 
+  static Widget _buildRatingsRoute(BuildContext context) => BlocProvider<HomeBloc>(
+        create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
+        child: AppRoute(child: Ratings()),
+      );
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(builder: (BuildContext context) => _buildHomeRoute(context));
-      default:
-        return MaterialPageRoute(
-            builder: (_) => Scaffold(
-                  body: Center(child: Text('No route defined for ${settings.name}')),
-                ));
+    if (settings.name == Routes.home.toString()) {
+      return MaterialPageRoute(builder: (BuildContext context) => _buildHomeRoute(context));
     }
+    if (settings.name == Routes.ratings.toString()) {
+      return MaterialPageRoute(builder: (BuildContext context) => _buildRatingsRoute(context));
+    }
+    return MaterialPageRoute(
+      builder: (_) => Scaffold(
+        body: Center(child: Text('No route defined for ${settings.name}')),
+      ),
+    );
   }
 }

@@ -26,28 +26,34 @@ class AppRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('test'),
-      ),
-      body: MultiBlocListener(
-        listeners: _getEventListeners(),
-        child: child,
-      ),
-      floatingActionButton: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            child: Icon(Icons.play_arrow),
-            onPressed: () async {
-              BlocProvider.of<ErrorBloc>(context)..add(ErrorEventShow('test message'));
-              BlocProvider.of<LoaderBloc>(context)..add(LoaderActiveEvent());
-              await Future.delayed(Duration(seconds: 5));
-              BlocProvider.of<LoaderBloc>(context)..add(LoaderInActiveEvent());
-            },
-          ),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: const TopAppBar(),
+        drawer: Drawer(
+          child: Menu(),
+        ),
+        endDrawer: Drawer(
+          child: Menu(),
+        ),
+        body: MultiBlocListener(
+          listeners: _getEventListeners(),
+          child: child,
+        ),
+        floatingActionButton: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            FloatingActionButton(
+              child: Icon(Icons.play_arrow),
+              onPressed: () async {
+                BlocProvider.of<ErrorBloc>(context)..add(ErrorEventShow('test message'));
+                BlocProvider.of<LoaderBloc>(context)..add(LoaderActiveEvent());
+                await Future.delayed(Duration(seconds: 5));
+                BlocProvider.of<LoaderBloc>(context)..add(LoaderInActiveEvent());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

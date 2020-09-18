@@ -47,7 +47,6 @@ class DbProvider implements IProvider {
   Future<void> _checkIfExist() async {
     String path = await _getPath();
     bool exists = await databaseExists(path);
-    print('exist $exists');
     if (!exists) {
       await _copy(path);
     }
