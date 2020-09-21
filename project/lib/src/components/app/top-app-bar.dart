@@ -30,7 +30,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              Router.goTo(context, Routes.home);
+              AppRouter.goTo(context, Routes.home);
             },
           ),
           IconButton(

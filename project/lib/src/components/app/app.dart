@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         title: 'Calendar',
         theme: getTheme(),
         initialRoute: Routes.home.toString(),
-        onGenerateRoute: Router.generateRoute,
+        onGenerateRoute: AppRouter.generateRoute,
       ),
     );
   }

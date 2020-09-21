@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
         onPressed: () async {
-          Router.goTo(context, Routes.ratings);
+          AppRouter.goTo(context, Routes.ratings);
         },
         child: Text('button'));
   }

@@ -2,12 +2,12 @@ part of 'app.dart';
 
 enum Routes { home, ratings }
 
-class Router {
-  static final _instance = Router._();
+class AppRouter {
+  static final _instance = AppRouter._();
 
-  const Router._();
+  const AppRouter._();
 
-  factory Router() {
+  factory AppRouter() {
     return _instance;
   }
 

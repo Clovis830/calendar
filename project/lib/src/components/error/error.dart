@@ -32,7 +32,7 @@ class Error extends StatelessWidget {
         FlatButton(
           child: Text('Закрыть'),
           onPressed: () {
-            Router.goBack(context);
+            AppRouter.goBack(context);
           },
         ),
       ],

@@ -9,7 +9,7 @@ class Ratings extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
         onPressed: () async {
-          Router.goTo(context, Routes.home);
+          AppRouter.goTo(context, Routes.home);
         },
         child: Text('ratings'));
   }

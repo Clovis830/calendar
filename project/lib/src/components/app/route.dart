@@ -18,7 +18,7 @@ class AppRoute extends StatelessWidget {
               Loader.showLoader(context);
             }
             if (state is LoaderStateInActive) {
-              Router.goBack(context);
+              AppRouter.goBack(context);
             }
           },
         )

@@ -18,7 +18,7 @@ class Settings extends StatelessWidget {
               for (_MenuItem item in _settingsData)
                 ListTile(
                   title: Text(item.title),
-                  onTap: () => Router.goTo(context, item.to),
+                  onTap: () => AppRouter.goTo(context, item.to),
                 ),
             ],
           ),
@@ -29,7 +29,7 @@ class Settings extends StatelessWidget {
               iconSize: 36.0,
               icon: Icon(Icons.close),
               onPressed: () {
-                Router.goBack(context);
+                AppRouter.goBack(context);
               },
             ),
           ),
