@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:calendar/src/components/error/index.dart';
 import 'package:calendar/src/components/app/app.dart';
-
-import 'package:calendar/src/components/get-path/path-controller.dart';
+import 'package:calendar/src/components/get-path/path-bloc.dart';
 
 class GetPath extends StatelessWidget {
   GetPath({Key key}) : super(key: key);
-  final _controller = PathController();
-
-  _openPopup(BuildContext context) async {
-    try {
-      FilePickerResult result = await FilePicker.platform.pickFiles();
-      print('---${result.files.single.path}');
-      _controller.savePath(result.files.single.path);
-    } catch (error) {
-      BlocProvider.of<ErrorBloc>(context).add(ErrorEventShow(error.message));
-    }
-  }
+  final _controller = PathBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +13,13 @@ class GetPath extends StatelessWidget {
 
     return Center(
       child: Container(
-          height: 100,
+          height: 300,
           width: width * 0.8,
           child: Column(
             children: [
               InkWell(
                 onTap: () {
-                  _openPopup(context);
+                  _controller.openFileSystem(context);
                 },
                 child: Column(
                   children: [
@@ -48,6 +34,7 @@ class GetPath extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
                 child: StreamBuilder<String>(
+                  stream: _controller.pathUpdate,
                   builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                     if (!snapshot.hasData) {
                       return Text('---');
@@ -55,17 +42,18 @@ class GetPath extends StatelessWidget {
                     return Column(
                       children: [
                         Text(snapshot.data),
-                        SizedBox(width: double.infinity, height: 40.0, child: FlatButton(
-                            onPressed: () {
-                              AppRouter.goTo(context, Routes.home);
-                            },
-                            // child: Text('Перейти на главную')),
-                            child: Text('lkl')),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 40.0,
+                          child: FlatButton(
+                              onPressed: () {
+                                AppRouter.goTo(context, Routes.home);
+                              },
+                              child: Text('Перейти на главную')),
                         ),
                       ],
                     );
                   },
-                  stream: _controller.pathUpdate,
                 ),
               ),
             ],

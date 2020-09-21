@@ -15,3 +15,10 @@ class AppInitial extends AppState {
   @override
   List<Object> get props => [pathToCalibre];
 }
+
+class AppStateWithPath extends AppState {
+  const AppStateWithPath(pathToCalibre) : super(pathToCalibre: pathToCalibre);
+
+  @override
+  List<Object> get props => [pathToCalibre];
+}

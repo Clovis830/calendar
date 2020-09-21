@@ -14,6 +14,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Stream<AppState> mapEventToState(
     AppEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is AppEventWithPath) {
+      yield AppStateWithPath(event.path);
+    }
   }
 }
