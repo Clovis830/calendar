@@ -33,26 +33,19 @@ class AppRoute extends StatelessWidget {
           child: Menu(),
         ),
         endDrawer: Drawer(
-          child: Menu(),
+          child: Settings(),
         ),
         body: MultiBlocListener(
           listeners: _getEventListeners(),
-          child: child,
-        ),
-        floatingActionButton: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            FloatingActionButton(
-              child: Icon(Icons.play_arrow),
-              onPressed: () async {
-                BlocProvider.of<ErrorBloc>(context)..add(ErrorEventShow('test message'));
-                BlocProvider.of<LoaderBloc>(context)..add(LoaderActiveEvent());
-                await Future.delayed(Duration(seconds: 5));
-                BlocProvider.of<LoaderBloc>(context)..add(LoaderInActiveEvent());
-              },
-            ),
-          ],
+          child: BlocBuilder<AppBloc, AppState>(
+            builder: (BuildContext context, state) {
+              print('state ${state.pathToCalibre}');
+              if (state.pathToCalibre == null) {
+                return GetPath();
+              }
+              return child;
+            },
+          ),
         ),
       ),
     );

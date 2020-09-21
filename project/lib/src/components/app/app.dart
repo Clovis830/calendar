@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:calendar/src/components/error/index.dart';
 import 'package:calendar/src/components/loader/index.dart';
+import 'package:calendar/src/components/get-path/get-path.dart';
 import 'package:calendar/src/screens/home/index.dart';
 import 'package:calendar/src/screens/ratings/ratings.dart';
+
+import 'package:calendar/src/components/app/bloc/app_bloc.dart';
 
 part 'common-providers.dart';
 part 'navigation.dart';
@@ -24,7 +27,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Calendar',
         theme: getTheme(),
-        initialRoute: Routes.ratings.toString(),
+        initialRoute: Routes.home.toString(),
         onGenerateRoute: Router.generateRoute,
       ),
     );

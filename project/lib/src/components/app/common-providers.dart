@@ -7,4 +7,7 @@ List<BlocProvider> _getProviders(BuildContext context) => [
       BlocProvider<LoaderBloc>(
         create: (BuildContext context) => LoaderBloc(),
       ),
+      BlocProvider<AppBloc>(
+        create: (BuildContext context) => AppBloc(),
+      ),
     ];
