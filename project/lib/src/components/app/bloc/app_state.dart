@@ -7,6 +7,11 @@ abstract class AppState extends Equatable {
 
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return '${super.toString()} with params: { pathToCalibre: $pathToCalibre }';
+  }
 }
 
 class AppInitial extends AppState {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:calendar/src/components/app/app.dart';
-import 'package:calendar/src/components/get-path/path-bloc.dart';
+import 'package:calendar/src/components/get-path/get-path-controller.dart';
 
 class GetPath extends StatelessWidget {
   GetPath({Key key}) : super(key: key);
-  final _controller = PathBloc();
+  final _controller = GetPathController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class GetPath extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
                 child: StreamBuilder<String>(
-                  stream: _controller.pathUpdate,
+                  stream: _controller.pathUpdates,
                   builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                     if (!snapshot.hasData) {
                       return Text('---');

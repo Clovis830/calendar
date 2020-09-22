@@ -25,10 +25,20 @@ class Menu extends StatelessWidget {
           ListView(
             padding: EdgeInsets.only(right: 48.0, bottom: 80.0),
             children: <Widget>[
-              DrawerHeader(
-                child: Text('Drawer Header'),
-                decoration: BoxDecoration(
-                  color: Colors.grey,
+              SizedBox(
+                height: 80.0,
+                child: DrawerHeader(
+                  padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Меню', style: const TextStyle(color: Colors.white)),
+                      Icon(Icons.menu_book, color: Colors.white.withOpacity(0.4), size: 36.0,)
+                    ],
+                    ),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                  ),
                 ),
               ),
               for (_MenuItem item in _menuData)

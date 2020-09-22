@@ -18,4 +18,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield AppStateWithPath(event.path);
     }
   }
+
+  @override
+  String toString() {
+    return 'app/bloc/app_bloc.dart';
+  }
 }

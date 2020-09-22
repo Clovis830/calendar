@@ -5,11 +5,12 @@ import 'package:file_picker/file_picker.dart';
 
 import 'package:calendar/src/components/error/index.dart';
 import 'package:calendar/src/components/app/bloc/app_bloc.dart';
+import 'package:calendar/src/services/service-locator.dart';
 
-class PathBloc {
+class GetPathController {
   final _pathStreamController = StreamController<String>();
 
-  Stream<String> get pathUpdate => _pathStreamController.stream;
+  Stream<String> get pathUpdates => _pathStreamController.stream;
 
   openFileSystem(BuildContext context) async {
     try {
@@ -21,7 +22,8 @@ class PathBloc {
     }
   }
 
-  void _savePath(String path) {
+  void _savePath(String path) async {
+    getService<DbProvider>().setPathToCalibreFolder(path);
     _pathStreamController.add(path);
   }
 

@@ -1,33 +1,62 @@
 part of 'app.dart';
 
-List<_MenuItem> _settingsData = const [
-  _MenuItem('Указать путь к базе данных Calibre', Routes.ratings),
-];
-
 class Settings extends StatelessWidget {
   const Settings({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Stack(children: [
-          BlocBuilder<AppBloc, AppState>(
-            builder: (BuildContext context, state) {
-              if (state.pathToCalibre != null) {
-                return Text(state.pathToCalibre);
-              }
-              return Text('Указать путь к базе данных Calibre');
-            },
-          ),
           ListView(
-            padding: EdgeInsets.only(right: 48.0, bottom: 80.0),
+            padding: const EdgeInsets.only(right: 48.0, bottom: 80.0),
             children: <Widget>[
-              for (_MenuItem item in _settingsData)
-                ListTile(
-                  title: Text(item.title),
-                  onTap: () => AppRouter.goTo(context, item.to),
+              SizedBox(
+                height: 60.0,
+                child: DrawerHeader(
+                  padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Настройки', style: const TextStyle(color: Colors.white)),
+                      Icon(Icons.settings, color: Colors.white.withOpacity(0.4), size: 36.0,)
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                  ),
                 ),
+              ),
+              Card(
+                  child: InkWell(
+                  onTap: () {
+                    print('tap');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Расположение базы данных Calibre: ',
+                          style: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                        ),
+                        BlocBuilder<AppBloc, AppState>(
+                          builder: (BuildContext context, state) {
+                            if (state.pathToCalibre != null) {
+                              return Text(state.pathToCalibre, style: const TextStyle(fontSize: 12.0));
+                            }
+                            return Text(
+                              'Не задано!',
+                              style: const TextStyle(fontSize: 12.0),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           Positioned(

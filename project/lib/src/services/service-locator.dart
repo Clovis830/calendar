@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:calendar/src/services/providers/providers.dart';
-import 'package:calendar/src/services/observers/test.dart';
+import 'package:calendar/src/services/observers/event-observer.dart';
 
 export 'package:calendar/src/services/providers/providers.dart';
 
 final Set<dynamic> _container = {};
 
 void initServices(networkConfig) {
-  Bloc.observer = SimpleBlocObserver();
+  Bloc.observer = EventObserver();
   initProviders(_container, networkConfig);
 }
 
