@@ -12,6 +12,14 @@ class Settings extends StatelessWidget {
     return Container(
         padding: EdgeInsets.all(8.0),
         child: Stack(children: [
+          BlocBuilder<AppBloc, AppState>(
+            builder: (BuildContext context, state) {
+              if (state.pathToCalibre != null) {
+                return Text(state.pathToCalibre);
+              }
+              return Text('Указать путь к базе данных Calibre');
+            },
+          ),
           ListView(
             padding: EdgeInsets.only(right: 48.0, bottom: 80.0),
             children: <Widget>[
