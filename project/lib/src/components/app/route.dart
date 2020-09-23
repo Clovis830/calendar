@@ -39,7 +39,6 @@ class AppRoute extends StatelessWidget {
           listeners: _getEventListeners(),
           child: BlocBuilder<AppBloc, AppState>(
             builder: (BuildContext context, state) {
-              print('state ${state.pathToCalibre}');
               if (state.pathToCalibre == null) {
                 return GetPath();
               }

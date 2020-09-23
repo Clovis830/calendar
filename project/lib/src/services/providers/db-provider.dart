@@ -10,7 +10,7 @@ class DbProvider implements IProvider {
   final String _calibreDbFileName = 'metadata.db';
   final String _appDbFileName = 'app.db';
 
-  String _pathToCalibreFolder = 'calibre/metadata.db';
+  String _pathToCalibreFolder;
   Database _db;
 
   factory DbProvider() {

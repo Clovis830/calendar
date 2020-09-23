@@ -1,6 +1,6 @@
 part of 'app.dart';
 
-enum Routes { home, ratings }
+enum Routes { home, ratings, getPath }
 
 class AppRouter {
   static final _instance = AppRouter._();
@@ -12,31 +12,37 @@ class AppRouter {
   }
 
   static goTo(BuildContext context, Routes route) {
-    Navigator.pushNamedAndRemoveUntil(context, route.toString(), (route) {
-      return route.isCurrent;
-    });
+    Navigator.pushNamed(context, route.toString());
   }
 
   static void goBack(BuildContext context) {
     Navigator.pop(context);
   }
 
-  static Widget _buildHomeRoute(BuildContext context) => BlocProvider<HomeBloc>(
-        create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
-        child: AppRoute(child: Home()),
+  static Route<dynamic> _buildGetPathRoute() => MaterialPageRoute(builder: (_) => AppRoute(child: GetPath()));
+
+  static Route<dynamic> _buildHomeRoute() => MaterialPageRoute(
+        builder: (_) => BlocProvider<HomeBloc>(
+          create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
+          child: AppRoute(child: Home()),
+        ),
       );
 
-  static Widget _buildRatingsRoute(BuildContext context) => BlocProvider<HomeBloc>(
-        create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
-        child: AppRoute(child: Ratings()),
-      );
+  static Route<dynamic> _buildRatingsRoute() => MaterialPageRoute(
+      builder: (_) => BlocProvider<HomeBloc>(
+            create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
+            child: AppRoute(child: Ratings()),
+          ));
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    if (settings.name == Routes.getPath.toString()) {
+      return _buildGetPathRoute();
+    }
     if (settings.name == Routes.home.toString()) {
-      return MaterialPageRoute(builder: (BuildContext context) => _buildHomeRoute(context));
+      return _buildHomeRoute();
     }
     if (settings.name == Routes.ratings.toString()) {
-      return MaterialPageRoute(builder: (BuildContext context) => _buildRatingsRoute(context));
+      return  _buildRatingsRoute();
     }
     return MaterialPageRoute(
       builder: (_) => Scaffold(

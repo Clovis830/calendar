@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:calendar/src/components/app/app.dart';
-import 'package:calendar/src/components/get-path/get-path-controller.dart';
+import 'package:calendar/src/screens/get-path/get-path-controller.dart';
 
 class GetPath extends StatelessWidget {
   GetPath({Key key}) : super(key: key);
@@ -24,28 +25,37 @@ class GetPath extends StatelessWidget {
                 child: Column(
                   children: [
                     Icon(Icons.file_download),
-                    Text(
-                      'Укажите путь к папке с библиотекой Calibre',
-                      textAlign: TextAlign.center,
-                    )
+                    BlocBuilder<AppBloc, AppState>(
+                      builder: (BuildContext context, state) {
+                        String headerInfo = state.pathToCalibre == null
+                            ? 'Укажите путь к папке с библиотекой Calibre'
+                            : 'Текущий путь к папке с библиотекой Calibre';
+                        return Text(
+                          headerInfo,
+                          textAlign: TextAlign.center,
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: StreamBuilder<String>(
-                  stream: _controller.pathUpdates,
-                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Text('---');
+                child: BlocBuilder<AppBloc, AppState>(
+                  builder: (BuildContext context, state) {
+                    TextStyle style = const TextStyle(color: Colors.black54, fontSize: 13.0, fontStyle: FontStyle.italic, decoration: TextDecoration.underline);
+
+                    if (state.pathToCalibre == null) {
+                      return Text('---', style: style);
                     }
                     return Column(
                       children: [
-                        Text(snapshot.data),
+                        Text(state.pathToCalibre, style: style),
                         SizedBox(
                           width: double.infinity,
                           height: 40.0,
                           child: FlatButton(
+                              color: Colors.blue,
                               onPressed: () {
                                 AppRouter.goTo(context, Routes.home);
                               },

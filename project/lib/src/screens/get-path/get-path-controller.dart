@@ -15,6 +15,9 @@ class GetPathController {
   openFileSystem(BuildContext context) async {
     try {
       final String path = await FilePicker.platform.getDirectoryPath();
+      if (path == null) {
+        return;
+      }
       _savePath(path);
       BlocProvider.of<AppBloc>(context).add(AppEventWithPath(path));
     } catch (error) {

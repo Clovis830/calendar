@@ -19,7 +19,11 @@ class Settings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Настройки', style: const TextStyle(color: Colors.white)),
-                      Icon(Icons.settings, color: Colors.white.withOpacity(0.4), size: 36.0,)
+                      Icon(
+                        Icons.settings,
+                        color: Colors.white.withOpacity(0.4),
+                        size: 36.0,
+                      )
                     ],
                   ),
                   decoration: BoxDecoration(
@@ -28,9 +32,9 @@ class Settings extends StatelessWidget {
                 ),
               ),
               Card(
-                  child: InkWell(
+                child: InkWell(
                   onTap: () {
-                    print('tap');
+                    AppRouter.goTo(context, Routes.getPath);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
