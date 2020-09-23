@@ -16,7 +16,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: Colors.white,
             ),
@@ -25,7 +25,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.home,
               color: Colors.white,
             ),
@@ -34,7 +34,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               color: Colors.white,
             ),

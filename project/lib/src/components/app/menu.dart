@@ -33,9 +33,13 @@ class Menu extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Меню', style: const TextStyle(color: Colors.white)),
-                      Icon(Icons.menu_book, color: Colors.white.withOpacity(0.4), size: 36.0,)
+                      Icon(
+                        Icons.menu_book,
+                        color: Colors.white.withOpacity(0.4),
+                        size: 36.0,
+                      )
                     ],
-                    ),
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black,
                   ),
@@ -53,7 +57,7 @@ class Menu extends StatelessWidget {
             top: -14.0,
             child: IconButton(
               iconSize: 36.0,
-              icon: Icon(Icons.close),
+              icon: const Icon(Icons.close),
               onPressed: () {
                 AppRouter.goBack(context);
               },

@@ -68,7 +68,7 @@ class Settings extends StatelessWidget {
             top: -14.0,
             child: IconButton(
               iconSize: 36.0,
-              icon: Icon(Icons.close),
+              icon: const Icon(Icons.close),
               onPressed: () {
                 AppRouter.goBack(context);
               },
