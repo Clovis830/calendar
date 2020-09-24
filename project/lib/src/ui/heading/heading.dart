@@ -6,6 +6,8 @@ class Heading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var style = Theme.of(context).textTheme.headline3;
+
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: SizedBox(
@@ -14,9 +16,7 @@ class Heading extends StatelessWidget {
           title.toUpperCase(),
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 20.0,
-          ),
+          style: style.copyWith(fontSize: 20.0),
         ),
       ),
     );

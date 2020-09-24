@@ -9,7 +9,7 @@ class Settings extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Stack(children: [
           ListView(
-            padding: const EdgeInsets.only(right: 48.0, bottom: 80.0),
+            padding: const EdgeInsets.only(bottom: 80.0),
             children: <Widget>[
               SizedBox(
                 height: 60.0,
@@ -62,17 +62,6 @@ class Settings extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          Positioned(
-            right: -6,
-            top: -14.0,
-            child: IconButton(
-              iconSize: 36.0,
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                AppRouter.goBack(context);
-              },
-            ),
           ),
           Positioned(
             left: 0,
