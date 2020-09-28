@@ -5,7 +5,11 @@ import 'package:calendar/src/components/error/index.dart';
 import 'package:calendar/src/components/loader/index.dart';
 import 'package:calendar/src/screens/get-path/get-path.dart';
 import 'package:calendar/src/screens/home/index.dart';
+import 'package:calendar/src/screens/library/library.dart';
+import 'package:calendar/src/screens/library/bloc/library_bloc.dart';
 import 'package:calendar/src/screens/ratings/ratings.dart';
+
+import 'package:calendar/src/repositories/repositories.dart';
 
 import 'package:calendar/src/components/app/bloc/app_bloc.dart';
 export 'package:calendar/src/components/app/bloc/app_bloc.dart';
@@ -25,11 +29,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: _getProviders(context),
-      child: MaterialApp(
-        title: 'Calendar',
-        theme: getTheme(),
-        initialRoute: Routes.home.toString(),
-        onGenerateRoute: AppRouter.generateRoute,
+      child: RepositoryProvider(
+        create: (context) => CalibreRepository(context),
+        child: MaterialApp(
+          title: 'Calendar',
+          theme: getTheme(),
+          initialRoute: Routes.home.toString(),
+          onGenerateRoute: AppRouter.generateRoute,
+        ),
       ),
     );
   }

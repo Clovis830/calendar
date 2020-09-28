@@ -6,6 +6,9 @@ class AppRoute extends StatelessWidget {
 
   List<BlocListener> _getEventListeners() => [
         BlocListener<ErrorBloc, ErrorState>(
+          listenWhen: (previousState, state) {
+            return previousState.message != state.message;
+          },
           listener: (context, state) {
             if (state is ErrorStateActive) {
               Error.showErrorDialog(context, state);
@@ -13,11 +16,14 @@ class AppRoute extends StatelessWidget {
           },
         ),
         BlocListener<LoaderBloc, LoaderState>(
+          listenWhen: (previousState, state) {
+            return previousState != state;
+          },
           listener: (context, state) {
-            if (state is LoaderStateActive) {
+            if (state is LoaderStateShow) {
               Loader.showLoader(context);
             }
-            if (state is LoaderStateInActive) {
+            if (state is LoaderStateHide) {
               AppRouter.goBack(context);
             }
           },

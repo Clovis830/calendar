@@ -8,6 +8,11 @@ abstract class ErrorState extends Equatable {
 
   @override
   List<Object> get props => [message];
+
+  @override
+  String toString() {
+    return '${super.toString()} with params: { message: $message }';
+  }
 }
 
 class ErrorStateActive extends ErrorState {

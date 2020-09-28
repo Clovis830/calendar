@@ -1,6 +1,6 @@
 part of 'app.dart';
 
-enum Routes { home, ratings, getPath }
+enum Routes { home, ratings, getPath, library }
 
 class AppRouter {
   static final _instance = AppRouter._();
@@ -12,7 +12,7 @@ class AppRouter {
   }
 
   static goTo(BuildContext context, Routes route) {
-    Navigator.pushNamed(context, route.toString());
+    Navigator.pushReplacementNamed(context, route.toString());
   }
 
   static void goBack(BuildContext context) {
@@ -25,6 +25,13 @@ class AppRouter {
         builder: (_) => BlocProvider<HomeBloc>(
           create: (BuildContext context) => HomeBloc()..add(HomeEventStarted()),
           child: AppRoute(child: Home()),
+        ),
+      );
+
+  static Route<dynamic> _buildLibraryRoute() => MaterialPageRoute(
+        builder: (_) => BlocProvider<LibraryBloc>(
+          create: (BuildContext context) => LibraryBloc(context)..add(LibraryEventLoadData()),
+          child: AppRoute(child: Library()),
         ),
       );
 
@@ -42,7 +49,10 @@ class AppRouter {
       return _buildHomeRoute();
     }
     if (settings.name == Routes.ratings.toString()) {
-      return  _buildRatingsRoute();
+      return _buildRatingsRoute();
+    }
+    if (settings.name == Routes.library.toString()) {
+      return _buildLibraryRoute();
     }
     return MaterialPageRoute(
       builder: (_) => Scaffold(

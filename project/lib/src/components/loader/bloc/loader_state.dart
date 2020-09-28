@@ -2,17 +2,15 @@ part of 'loader_bloc.dart';
 
 @immutable
 abstract class LoaderState extends Equatable {
-  final bool isActive;
+  const LoaderState();
 
-  const LoaderState(this.isActive);
-
-  List<Object> get props => [isActive];
+  List<Object> get props => [];
 }
 
-class LoaderStateActive extends LoaderState {
-  const LoaderStateActive() : super(true);
+class LoaderStateShow extends LoaderState {
+  const LoaderStateShow();
 }
 
-class LoaderStateInActive extends LoaderState {
-  const LoaderStateInActive() : super(false);
+class LoaderStateHide extends LoaderState {
+  const LoaderStateHide();
 }

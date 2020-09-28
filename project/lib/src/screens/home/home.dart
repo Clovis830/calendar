@@ -1,8 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-import 'package:calendar/src/components/app/app.dart';
 import 'package:calendar/src/ui/heading/heading.dart';
 
 /// отвечает за отображение списка последних открытыx книг
@@ -45,7 +44,7 @@ class Home extends StatelessWidget {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black),
+                          style: style.bodyText1,
                           text:
                               '''bottom many many text bottom many many text bottom many many text bottom many many text,
                               bottom many many text bottom many many text bottom many many text bottom many many text,
@@ -59,8 +58,23 @@ class Home extends StatelessWidget {
             Expanded(
               child: Container(
                 width: double.infinity,
-                child: Text('test'),
-                color: Colors.red,
+                child: CarouselSlider(
+                  options: CarouselOptions(),
+                  items: [1, 2, 3, 4, 5].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(color: Colors.black),
+                            child: Text(
+                              'text $i',
+                              style: TextStyle(fontSize: 16.0),
+                            ));
+                      },
+                    );
+                  }).toList(),
+                ),
               ),
             )
           ],

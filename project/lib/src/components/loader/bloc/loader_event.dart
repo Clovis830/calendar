@@ -6,6 +6,6 @@ abstract class LoaderEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoaderActiveEvent extends LoaderEvent {}
+class LoaderEventShow extends LoaderEvent {}
 
-class LoaderInActiveEvent extends LoaderEvent {}
+class LoaderEventHide extends LoaderEvent {}

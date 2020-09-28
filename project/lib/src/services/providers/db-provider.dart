@@ -72,11 +72,10 @@ class DbProvider implements IProvider {
     return _db;
   }
 
-  Future<List<Map<String, dynamic>>> query(String table, [Map<dynamic, dynamic> arguments]) async {
-    Database db = await getInstance();
-    if (db == null) {
-      return null;
+  dispose() {
+    if (_db == null) {
+      return;
     }
-    return Function.apply(db.query, [table], arguments);
+    _db.close();
   }
 }

@@ -3,7 +3,10 @@ import 'package:logger/logger.dart';
 
 class EventObserver extends BlocObserver {
   final logger = Logger(
-    printer: PrettyPrinter(printEmojis: true, colors: true,),
+    printer: PrettyPrinter(
+      printEmojis: true,
+      colors: true,
+    ),
   );
 
   @override
@@ -19,8 +22,7 @@ class EventObserver extends BlocObserver {
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    logger.d('Prev state of bloc $bloc: ${transition.currentState}');
-    logger.d('Next state of bloc $bloc: ${transition.nextState}');
+    logger.d('Bloc $bloc: prev state @@@ - ${transition.currentState}, next state @@@ - ${transition.nextState}');
     super.onTransition(bloc, transition);
   }
 }
