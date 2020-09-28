@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert' as convert;
 
+import 'package:calendar/src/services/providers/sql/sql.dart';
+
 part 'db-provider.dart';
 part 'i-provider.dart';
 part 'good-reads-provider.dart';

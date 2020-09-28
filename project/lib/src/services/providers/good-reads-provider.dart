@@ -1,5 +1,7 @@
 part of 'providers.dart';
 
+Map<String, String> urls = {'getAuthors': 'get-authors',};
+
 /// класс для работы с API GoodReads
 class GoodReadsProvider implements IProvider {
   static final GoodReadsProvider _instance = GoodReadsProvider._private();
@@ -16,6 +18,6 @@ class GoodReadsProvider implements IProvider {
   }
 
   getAuthors() {
-    return _transport.request(method: 'get', url: '$_apiUrl/get-authors?key=$_apiKey');
+    return _transport.request(method: 'get', url: '$_apiUrl/${urls["getAuthors"]}?key=$_apiKey');
   }
 }

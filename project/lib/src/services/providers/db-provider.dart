@@ -17,11 +17,17 @@ class DbProvider implements IProvider {
     return _instance;
   }
 
-  void setPathToCalibreFolder(String path) {
+  void setPathToCalibreFolder(String path) async {
     if (path == _pathToCalibreFolder) {
       return;
     }
     _pathToCalibreFolder = path;
+    if (_pathToCalibreFolder != null) {
+      // await rawDelete(deleteCalibrePath);
+    }
+        print(await rawQuery('SELECT * FROM $tableAppSettings'));
+
+    await rawInsert(insertCalibrePath, [path]);
   }
 
   DbProvider._private() {
@@ -33,12 +39,17 @@ class DbProvider implements IProvider {
     return join(databasesPath, _appDbFileName);
   }
 
+  Future<void> _createTables() {
+    return _db.execute(createTables);
+  }
+
   Future<void> _open() async {
     if (_db != null && _db.isOpen) {
       return;
     }
     String path = await _getPath();
     _db = await openDatabase(path);
+    await _createTables();
   }
 
   // Future<void> _copy(String path) async {
@@ -70,6 +81,31 @@ class DbProvider implements IProvider {
       await _open();
     }
     return _db;
+  }
+
+  Future<void> execute(String raw, [List<dynamic> values]) async {
+    Database db = await getInstance();
+    return db.execute(raw);
+  }
+
+  Future<List<Map<String, dynamic>>> rawQuery(String raw, [List<dynamic> values]) async {
+    Database db = await getInstance();
+    return db.rawQuery(raw);
+  }
+
+  Future<int> rawInsert(String raw, [List<dynamic> values]) async {
+    Database db = await getInstance();
+    return db.rawInsert(raw);
+  }
+
+  Future<int> rawUpdate(String raw, [List<dynamic> values]) async {
+    Database db = await getInstance();
+    return db.rawUpdate(raw);
+  }
+
+  Future<int> rawDelete(String raw, [List<dynamic> values]) async {
+    Database db = await getInstance();
+    return db.rawDelete(raw);
   }
 
   dispose() {
