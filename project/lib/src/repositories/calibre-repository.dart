@@ -15,9 +15,9 @@ class CalibreRepository {
   ErrorBloc _errorBloc;
   LoaderBloc _loaderBloc;
 
-  factory CalibreRepository(BuildContext context) {
-    _instance._errorBloc = BlocProvider.of<ErrorBloc>(context);
-    _instance._loaderBloc = BlocProvider.of<LoaderBloc>(context);
+  factory CalibreRepository(ErrorBloc errorBloc, LoaderBloc loaderBloc) {
+    _instance._errorBloc = errorBloc;
+    _instance._loaderBloc = loaderBloc;
     return _instance;
   }
 
@@ -37,6 +37,6 @@ class CalibreRepository {
   }
 
   loadAllBooks() async {
-    return _doAndCheck(_dbProvider.rawQuery, 'select * from appInfo');
+    return _doAndCheck(_dbProvider.rawQuery, 'select * from AppSettings');
   }
 }

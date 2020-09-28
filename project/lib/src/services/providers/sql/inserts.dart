@@ -1,6 +1,6 @@
 part of 'sql.dart';
 
-// inserts and updates 
+// inserts and updates
 
 // const String insertCalibrePath = '''
 //   IF EXISTS(SELECT $appInfoColDbPath FROM $tableAppInfo)
@@ -10,5 +10,5 @@ part of 'sql.dart';
 // ''';
 
 const String insertCalibrePath = '''
-  INSERT into $tableAppSettings(name, path) VALUES($calibreColumnName, ?)
+  INSERT into $tableAppSettings(name, path) VALUES(?, ?)
 ''';

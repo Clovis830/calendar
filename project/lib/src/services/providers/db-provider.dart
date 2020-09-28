@@ -17,21 +17,8 @@ class DbProvider implements IProvider {
     return _instance;
   }
 
-  void setPathToCalibreFolder(String path) async {
-    if (path == _pathToCalibreFolder) {
-      return;
-    }
-    _pathToCalibreFolder = path;
-    if (_pathToCalibreFolder != null) {
-      // await rawDelete(deleteCalibrePath);
-    }
-        print(await rawQuery('SELECT * FROM $tableAppSettings'));
-
-    await rawInsert(insertCalibrePath, [path]);
-  }
-
   DbProvider._private() {
-    _open();
+    _initialize();
   }
 
   Future<String> _getPath() async {
@@ -49,7 +36,27 @@ class DbProvider implements IProvider {
     }
     String path = await _getPath();
     _db = await openDatabase(path);
-    await _createTables();
+  }
+
+  Future<void> _initialize() async {
+    await _open();
+    if (_db != null) {
+      await _createTables();
+    }
+  }
+
+  void setPathToCalibreFolder(String path) async {
+    if (path == _pathToCalibreFolder) {
+      return;
+    }
+    var lastSavedPath = await rawQuery(selectDbPath);
+
+    if (lastSavedPath.isNotEmpty) {
+      await rawDelete(deleteCalibrePath);
+    }
+
+    await rawInsert(insertCalibrePath, [calibreColumnName, path]);
+    _pathToCalibreFolder = path;
   }
 
   // Future<void> _copy(String path) async {
@@ -85,27 +92,27 @@ class DbProvider implements IProvider {
 
   Future<void> execute(String raw, [List<dynamic> values]) async {
     Database db = await getInstance();
-    return db.execute(raw);
+    return db.execute(raw, values);
   }
 
   Future<List<Map<String, dynamic>>> rawQuery(String raw, [List<dynamic> values]) async {
     Database db = await getInstance();
-    return db.rawQuery(raw);
+    return db.rawQuery(raw, values);
   }
 
   Future<int> rawInsert(String raw, [List<dynamic> values]) async {
     Database db = await getInstance();
-    return db.rawInsert(raw);
+    return db.rawInsert(raw, values);
   }
 
   Future<int> rawUpdate(String raw, [List<dynamic> values]) async {
     Database db = await getInstance();
-    return db.rawUpdate(raw);
+    return db.rawUpdate(raw, values);
   }
 
   Future<int> rawDelete(String raw, [List<dynamic> values]) async {
     Database db = await getInstance();
-    return db.rawDelete(raw);
+    return db.rawDelete(raw, values);
   }
 
   dispose() {

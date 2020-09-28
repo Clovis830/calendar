@@ -25,12 +25,28 @@ part 'settings.dart';
 class App extends StatelessWidget {
   App({Key key}) : super(key: key);
 
+  final ErrorBloc _errorBloc = ErrorBloc();
+  final LoaderBloc _loaderBloc = LoaderBloc();
+  final CalibreRepository _calibreRepository = CalibreRepository(_errorBloc, _loaderBloc);
+
+  final _appBloc = AppBloc(_calibreRepository);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: _getProviders(context),
+      providers: [
+        BlocProvider<ErrorBloc>(
+          create: (BuildContext context) => _errorBloc,
+        ),
+        BlocProvider<LoaderBloc>(
+          create: (BuildContext context) => _loaderBloc,
+        ),
+        BlocProvider<AppBloc>(
+          create: (BuildContext context) => _appBloc,
+        ),
+      ],
       child: RepositoryProvider(
-        create: (context) => CalibreRepository(context),
+        create: (context) => _calibreRepository,
         child: MaterialApp(
           title: 'Calendar',
           theme: getTheme(),
@@ -39,5 +55,11 @@ class App extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  dispose() {
+    _errorBloc.close();
+    _loaderBloc.close();
+    _appBloc.close();
   }
 }
